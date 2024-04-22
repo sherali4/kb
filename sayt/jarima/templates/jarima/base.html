@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+
+</head>
+<body>
+    {% block header %}{% include './blocks/navbar.html' %}{% endblock %}
+    {% block breadcrumb %}{% include './blocks/breadcrub.html' %}{% endblock %}
+
+    <div class="container mt-4">
+        <h1 class="text-dark">{{header}}</h1>
+        <p>{{boshqarma}}</p>
+    </div>
+<hr>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-lg-3 col-sm-3 text-center">{% block left %}{% include './blocks/left.html' %}{% endblock %}</div>
+            <div class="col-lg col-sm-6 text-center">{% block middle %}1{% endblock %}</div>
+            <div class="col-lg-3 col-sm-3 col-md-6 text-center">{% block right %}{% include './blocks/right.html' %}{% endblock %}</div>
+        </div>
+    </div>
+
+    {% block footer %}{% include './blocks/footer.html' %}{% endblock %}
+    <!-- Bootstrap JS and dependencies -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

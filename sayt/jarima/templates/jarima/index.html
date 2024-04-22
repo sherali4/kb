@@ -1,0 +1,51 @@
+{% extends './base.html' %}
+{% block middle %}
+
+
+    <table class="table table-striped table-hover">
+        <tr><th>okpo</th><th>inn</th><th>soato4</th><th>nomi</th><th>edit button</th><th></th></tr>
+
+
+        {% for b in baza %}
+        <form id="uploadForm{{ b.pk }}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <tr>
+                <td>{{ b.okpo }}</td>
+                <td>{{ b.inn }}</td>
+                <td>{{ b.soato4 }}</td>
+                <td>{{ b.nomi }}</td>
+                <td class="id"><input class="form-control" type="file" name="file"><input type="hidden" name="innx" value="{{ b.pk }}"></td>
+                <td><button type="submit">Yuklash</button></td>
+            </tr>
+        </form>
+        {% endfor %}
+    </table>
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '/upload/',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $(this).value(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        $(this).value('Error: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

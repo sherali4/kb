@@ -1,11 +1,52 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from .models import Report, Period, Satrlar
 
-from django.contrib.auth.decorators import login_required
+report = Report.objects.all()
 
 
 
+def view_satrlar(request, xisobot, davr):
+    satr = Satrlar.objects.filter(period_id = davr)
+    context = {
+        'satr': satr,
+        'report': report,
+        'xisobot': xisobot,
+        'davr': davr,
+    }
+    return render(request, template_name='kb/satr_ruyxat.html', context=context)
+
+
+# @login_required
+def index(request):
+
+    contex = {
+        'report': report,
+        'title': 'Ishbilarmonlik boshqarmasi',
+        'header': 'Ishbilarmonlik muhiti kuzatuvlari va tadbirkorlikni rivojlantirish statistikasi boshqarmasi',
+        'boshqarma': "Tadbirkorlik statistikasi bo`yicha yig`ma tahliliy axborotlarni shakllantirish bo`limi"
+    }
+
+    return render(request, 'kb/index.html', context=contex)
+
+
+def view_xisobot(request, ids):
+
+    xisobot = Period.objects.filter(report=ids)
+
+
+    context = {
+        'report': report,
+        'xisobot': xisobot,
+    }
+    return render(request, template_name='kb/xisobot_ruyxat.html', context=context,)
+
+
+
+def logout(request):
+    return render(request, 'logout.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -36,11 +77,4 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'kb/signup.html', {'form': form})
-@login_required
-def index(request):
-    contex = {
-        'title': 'Ishbilarmonlik boshqarmasi',
-        'header': 'Ishbilarmonlik muhiti kuzatuvlari va tadbirkorlikni rivojlantirish statistikasi boshqarmasi',
-        'boshqarma': "Tadbirkorlik statistikasi bo`yicha yig`ma tahliliy axborotlarni shakllantirish bo`limi"
-    }
-    return render(request, 'kb/index.html', context=contex)
+

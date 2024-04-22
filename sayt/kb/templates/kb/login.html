@@ -2,17 +2,17 @@
 {% block middle %}
 
 
-    <h1>Login Page</h1>
+    <h1>Profilga kirish</h1>
     {% if error_message %}
         <p>{{ error_message }}</p>
     {% endif %}
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <label for="username">Username:</label>
+        <label for="username">Login:</label>
         <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
+        <label for="password">Parol:</label>
         <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Kirish">
     </form>
 
 {% endblock %}

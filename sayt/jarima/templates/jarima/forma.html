@@ -1,0 +1,42 @@
+{% extends './base.html' %}
+{% block middle %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+    <h1>Update Data</h1>
+
+    <p>Current Boolean Field Value: {{ baza.okpo }}</p>
+    <p>Current Other Field Value: {{ baza.inn }}</p>
+
+    <form method="POST" action="{% url 'update' pk=baza.id %}">
+        {% csrf_token %}
+        <label for="new_boolean_value">New Boolean Value:</label>
+        <input type="checkbox" id="new_boolean_value" name="new_boolean_value">
+
+        <label for="new_other_value">New Other Value:</label>
+        <input type="text" id="new_other_value" name="new_other_value">
+
+        <button type="submit">Update</button>
+    </form>
+{% endcomment %}
+
+
+
+{% endblock %}
